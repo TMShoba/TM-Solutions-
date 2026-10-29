@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TM Solutions — Software & DevOps Engineering</title>
+<meta name="description" content="TM Solutions builds modern software and resilient cloud infrastructure. See the work we've shipped.">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="grid-floor"></div>
+<canvas id="bg"></canvas>
+<div class="glow" id="glow"></div>
+
+<nav>
+  <a href="#top" class="logo"><i>TM</i>TM <span>Solutions</span></a>
+  <div class="links">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#team">Team</a>
+    <a href="#contact" class="cta">Let's talk</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="tag rv">TM SOLUTIONS // ONLINE</span>
+    <h1 class="rv" style="--d:.1s">We engineer<br><span class="grad glitch" data-t="the future">the future</span><br>of your business.</h1>
+    <p class="lead rv" style="--d:.2s">Software and infrastructure, built to last. <span class="type" id="type"></span></p>
+    <div class="hero-actions rv" style="--d:.3s">
+      <a href="#work" class="btn primary">Explore our work →</a>
+      <a href="#contact" class="btn">Start a project</a>
+    </div>
+    <div class="stats rv" style="--d:.4s">
+      <div class="stat"><b data-count id="statProjects">0</b><span>Projects live</span></div>
+      <div class="stat"><b data-count="2">0</b><span>Founders</span></div>
+      <div class="stat"><b>24/7</b><span>Reliability mindset</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint"></div>
+</header>
+
+<div class="marquee"><div id="marquee"></div></div>
+
+<section id="services">
+  <div class="wrap">
+    <span class="eyebrow rv">// what we do</span>
+    <h2 class="rv">Two disciplines.<br>One seamless delivery.</h2>
+    <p class="sub rv">From the first line of code to the last deployment pipeline, we own the whole journey.</p>
+    <div class="services">
+      <div class="panel rv"><div class="ico">⌬</div><h3>Software Engineering</h3><p>Web apps, platforms and websites designed for performance, clarity and growth.</p></div>
+      <div class="panel rv" style="--d:.1s"><div class="ico">☁</div><h3>DevOps &amp; Cloud</h3><p>CI/CD, infrastructure as code and monitoring that keeps your product fast and online.</p></div>
+      <div class="panel rv" style="--d:.2s"><div class="ico">◈</div><h3>Product Design</h3><p>Modern interfaces and motion that make brands feel as advanced as they are.</p></div>
+      <div class="panel rv" style="--d:.3s"><div class="ico">⛨</div><h3>Security &amp; Reliability</h3><p>Hardened releases, backups and observability from day one.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <span class="eyebrow rv">// published work</span>
+    <h2 class="rv">Live projects.<br>Real results.</h2>
+    <p class="sub rv">Everything here is shipped and public. Click through and see it for yourself.</p>
+    <div class="filters" id="filters"></div>
+    <div class="work" id="work-grid"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="wrap">
+    <span class="eyebrow rv">// the founders</span>
+    <h2 class="rv">The minds behind<br>TM Solutions.</h2>
+    <div class="team">
+      <div class="panel person rv">
+        <div class="avatar"><b>MM</b></div>
+        <h3>Mosa Maloisane</h3><span class="role">Co-founder · DevOps</span>
+        <p>Keeps everything we ship fast, automated and online — pipelines, cloud and reliability.</p>
+      </div>
+      <div class="panel person rv" style="--d:.15s">
+        <div class="avatar"><b>TS</b></div>
+        <h3>Thabo Shoba</h3><span class="role">Co-founder · Software Engineer</span>
+        <p>Designs and builds the products themselves — from clean architecture to polished interfaces.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="box rv">
+      <span class="eyebrow">// initiate contact</span>
+      <h2>Got an idea?<br><span class="grad">Let's build it.</span></h2>
+      <p class="sub">Tell us about your project and we'll get back to you.</p>
+      <form class="cform" id="cform" novalidate>
+        <div class="crow">
+          <div><label for="cName">Your name</label><input id="cName" name="name" autocomplete="name" maxlength="80" required></div>
+          <div><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" autocomplete="email" maxlength="120" required></div>
+        </div>
+        <label for="cTopic">I'm interested in</label>
+        <select id="cTopic" name="topic">
+          <option>A new website or web app</option><option>DevOps &amp; cloud setup</option>
+          <option>Improving an existing product</option><option>Something else</option>
+        </select>
+        <label for="cMsg">Tell us about your project</label>
+        <textarea id="cMsg" name="message" maxlength="2000" required placeholder="What are you building, and when do you need it?"></textarea>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="cerr" id="cerr" role="alert"></p>
+        <button class="btn primary" id="csend">Send message →</button>
+      </form>
+      <div class="cdone hidden" id="cdone" role="status">
+        <div class="tick">✓</div>
+        <h3>Message received</h3>
+        <p class="sub">Thanks — Mosa and Thabo will get back to you soon.</p>
+      </div>
+      <p class="alt" id="alt"></p>
+      <div class="social" id="social"></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> TM Solutions. All rights reserved.</span><span>Built by Mosa &amp; Thabo</span></div></footer>
+
+<script src="/main.js"></script>
+</body>
+</html>

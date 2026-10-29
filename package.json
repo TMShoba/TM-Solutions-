@@ -1,0 +1,9 @@
+{
+  "name": "tm-solutions-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TM Solutions portfolio website with admin dashboard",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin — TM Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-body">
+<div class="grid-floor"></div>
+
+<div class="login" id="login">
+  <form class="panel" id="loginForm">
+    <span class="tag">SECURE ACCESS</span>
+    <h1>Admin sign in</h1>
+    <p class="sub">TM Solutions portfolio manager</p>
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" required autofocus>
+    <button class="btn primary" style="margin-top:22px;width:100%;justify-content:center">Unlock →</button>
+  </form>
+</div>
+
+<main class="admin hidden" id="app">
+  <div class="wrap">
+    <div class="topbar">
+      <h1>Portfolio <span class="grad">manager</span></h1>
+      <div class="inline"><a class="btn sm" href="/" target="_blank">View site ↗</a><button class="btn sm" id="logout">Sign out</button></div>
+    </div>
+    <div class="tabs">
+      <button class="chip on" data-tab="projects">Projects</button>
+      <button class="chip" data-tab="settings">Settings</button>
+    </div>
+
+    <div id="tab-projects" class="split">
+      <form class="panel" id="form">
+        <h3 id="formTitle">Add published work</h3>
+        <label for="url">Link to published work</label>
+        <div class="inline">
+          <input id="url" type="url" placeholder="https://example.com" required>
+          <button type="button" class="btn sm" id="fetch">Fetch details</button>
+        </div>
+        <label for="title">Title</label>
+        <input id="title" maxlength="120" placeholder="Filled in automatically — editable">
+        <label for="desc">Description</label>
+        <textarea id="desc" maxlength="300"></textarea>
+        <label for="image">Preview image URL</label>
+        <input id="image" type="url" placeholder="https://…/image.jpg">
+        <div class="row">
+          <div><label for="cat">Category</label><input id="cat" list="cats" value="Website" maxlength="40"></div>
+          <div><label for="tags">Tags (comma separated)</label><input id="tags" placeholder="React, AWS"></div>
+        </div>
+        <datalist id="cats"><option>Website</option><option>Web App</option><option>Mobile App</option><option>DevOps</option></datalist>
+        <label class="check"><input type="checkbox" id="featured" checked> Mark as featured</label>
+        <div class="inline" style="margin-top:22px">
+          <button class="btn primary" id="save">Add to portfolio</button>
+          <button type="button" class="btn hidden" id="cancel">Cancel edit</button>
+        </div>
+        <div class="preview" id="preview"></div>
+      </form>
+      <div>
+        <h3 style="margin-bottom:14px">Published (<span id="count">0</span>)</h3>
+        <div class="list" id="list"></div>
+      </div>
+    </div>
+
+    <div id="tab-settings" class="hidden split">
+      <form class="panel" id="siteForm">
+        <h3>Contact &amp; social</h3>
+        <label for="sEmail">Contact email</label><input id="sEmail" type="email">
+        <label for="sLi">LinkedIn URL</label><input id="sLi" type="url">
+        <label for="sGh">GitHub URL</label><input id="sGh" type="url">
+        <button class="btn primary" style="margin-top:22px">Save settings</button>
+      </form>
+      <form class="panel" id="mailForm">
+        <h3>Contact form email</h3>
+        <p class="sub" style="font-size:.9rem;margin-top:6px">Enquiries from "Let's talk" are emailed to you. Use a mailbox you own — for Gmail, create an <b>App Password</b> (Google Account → Security → 2-Step Verification → App passwords).</p>
+        <label for="mTo">Send enquiries to (comma separated for both of you)</label><input id="mTo" placeholder="mosa@…, thabo@…" required>
+        <div class="row">
+          <div><label for="mHost">SMTP server</label><input id="mHost" placeholder="smtp.gmail.com" required></div>
+          <div><label for="mPort">Port</label><input id="mPort" type="number" placeholder="465" required></div>
+        </div>
+        <label for="mUser">Sending mailbox (login)</label><input id="mUser" type="email" placeholder="you@gmail.com" autocomplete="off" required>
+        <label for="mPass">Password / app password</label><input id="mPass" type="password" autocomplete="new-password" placeholder="">
+        <div class="inline" style="margin-top:22px">
+          <button class="btn primary">Save email settings</button>
+          <button type="button" class="btn" id="mTest">Send test email</button>
+        </div>
+      </form>
+      <form class="panel" id="pwForm">
+        <h3>Change password</h3>
+        <label for="np">New password (8+ characters)</label><input id="np" type="password" minlength="8" autocomplete="new-password" required>
+        <button class="btn primary" style="margin-top:22px">Update password</button>
+      </form>
+    </div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+<script src="/admin.js"></script>
+</body>
+</html>

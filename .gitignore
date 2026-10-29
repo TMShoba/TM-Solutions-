@@ -1,0 +1,5 @@
+# secrets: admin password hash, session secret, saved email password
+data/config.json
+data/*.tmp
+node_modules/
+.env
