@@ -103,7 +103,7 @@ function showPreview() {
   const thumb = el('div', { class: 'thumb' });
   const ph = el('div', { class: 'ph', style: `--g:${gradFor(f.title.value || 'x')}` }, (f.title.value[0] || '•').toUpperCase());
   thumb.append(ph);
-  if (safeHref(f.image.value)) {
+  if (safeHref(f.image.value) || /^\/api\/image\//.test(f.image.value)) {
     const img = el('img', { src: f.image.value, alt: '', referrerpolicy: 'no-referrer' });
     img.onload = () => ph.remove(); img.onerror = () => img.remove(); thumb.prepend(img);
   }
@@ -122,6 +122,38 @@ $('#fetch').onclick = async () => {
   } catch (e) { toast(e.message, true); }
   b.textContent = 'Fetch details'; b.disabled = false;
 };
+/* ---- upload a preview image: shrunk in the browser first so it stays small and fast ---- */
+const MAX_BYTES = 450 * 1024;
+function shrink(file) {
+  return new Promise((resolve, reject) => {
+    const src = URL.createObjectURL(file), img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(src);
+      let w = Math.min(1200, img.width), q = 0.85;
+      const c = document.createElement('canvas');
+      (function attempt() {
+        c.width = w; c.height = Math.round((img.height * w) / img.width);
+        const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+        const data = c.toDataURL('image/jpeg', q);
+        if (data.length * 0.75 <= MAX_BYTES || w < 400) return resolve(data);
+        q = Math.max(0.6, q - 0.08); w = Math.round(w * 0.85); attempt();
+      })();
+    };
+    img.onerror = () => reject(new Error('That file is not an image we can read.'));
+    img.src = src;
+  });
+}
+$('#upBtn').onclick = () => $('#upFile').click();
+$('#upFile').onchange = async () => {
+  const file = $('#upFile').files[0]; if (!file) return;
+  const b = $('#upBtn'); b.textContent = 'Uploading…'; b.disabled = true;
+  try {
+    const r = await api('/api/upload', 'POST', { data: await shrink(file) });
+    f.image.value = r.url; showPreview(); toast('Image uploaded ✓');
+  } catch (e) { toast(e.message, true); }
+  b.textContent = 'Upload image'; b.disabled = false; $('#upFile').value = '';
+};
+
 // pasting a link into an empty form fetches its details automatically
 f.url.addEventListener('paste', () => setTimeout(() => { if (!editing && !f.title.value) $('#fetch').click(); }, 50));
 

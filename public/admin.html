@@ -47,8 +47,12 @@
         <input id="title" maxlength="120" placeholder="Filled in automatically — editable">
         <label for="desc">Description</label>
         <textarea id="desc" maxlength="300"></textarea>
-        <label for="image">Preview image URL</label>
-        <input id="image" type="url" placeholder="https://…/image.jpg">
+        <label for="image">Preview image</label>
+        <div class="inline">
+          <input id="image" placeholder="Paste an image link, or upload one →">
+          <button type="button" class="btn sm" id="upBtn">Upload image</button>
+          <input type="file" id="upFile" accept="image/jpeg,image/png,image/webp" class="hidden">
+        </div>
         <div class="row">
           <div><label for="cat">Category</label><input id="cat" list="cats" value="Website" maxlength="40"></div>
           <div><label for="tags">Tags (comma separated)</label><input id="tags" placeholder="React, AWS"></div>
