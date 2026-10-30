@@ -10,7 +10,7 @@ function toast(msg, err) {
 async function api(path, method = 'GET', body) {
   const r = await fetch(path, { method, headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined });
   const data = await r.json().catch(() => ({}));
-  if (!r.ok) { const e = new Error(data.error || 'Request failed'); e.status = r.status; throw e; }
+  if (!r.ok) { const e = new Error(data.error || 'Request failed (HTTP ' + r.status + ')'); e.status = r.status; throw e; }
   return data;
 }
 function el(tag, props = {}, ...kids) {
@@ -71,7 +71,7 @@ function renderList() {
     edit.onclick = () => startEdit(p);
     del.onclick = async () => {
       if (!confirm(`Remove "${p.title}" from the portfolio?`)) return;
-      try { await api('/api/projects/' + p.id, 'DELETE'); toast('Removed'); await load(); } catch (e) { toast(e.message, true); }
+      try { await api('/api/project?id=' + encodeURIComponent(p.id), 'DELETE'); toast('Removed'); await load(); } catch (e) { toast(e.message, true); }
     };
     list.append(el('div', { class: 'item' }, thumb,
       el('div', {}, el('h4', {}, p.title), el('small', {}, p.url || 'No link yet — add one to show a live preview')),
@@ -161,7 +161,7 @@ $('#form').onsubmit = async (e) => {
   e.preventDefault();
   const body = { url: f.url.value, title: f.title.value, description: f.desc.value, image: f.image.value, category: f.cat.value, tags: f.tags.value, featured: f.featured.checked };
   try {
-    if (editing) { await api('/api/projects/' + editing.id, 'PUT', body); toast('Saved'); }
+    if (editing) { await api('/api/project?id=' + encodeURIComponent(editing.id), 'PUT', body); toast('Saved'); }
     else { await api('/api/projects', 'POST', body); toast('Added to portfolio ✓'); }
     reset(); await load();
   } catch (err) { toast(err.message, true); }
